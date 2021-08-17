@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private GameObject target;
-    [SerializeField] private Vector3 offset;
-    [SerializeField] private Vector3 rotationOffset;
+    [SerializeField] private Transform target;
+    
+    [SerializeField] private float movementSenstivity = 0.2f;
+    [SerializeField] private float rotationSenstivity = 0.2f;
 
 
+
+    Vector2 rotation;
 
     private void Update()
     {
-        transform.position = target.transform.position + offset;
-        transform.rotation = Quaternion.Euler(target.transform.localEulerAngles + rotationOffset);
+        transform.position = Vector3.Lerp(transform.position,target.position,movementSenstivity);
+        transform.rotation = Quaternion.Lerp(transform.rotation, target.rotation,rotationSenstivity);
+
     }
 
 }
