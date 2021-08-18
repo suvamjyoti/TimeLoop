@@ -28,7 +28,10 @@ public class Enemy : MonoBehaviour,IDamagable
     private Player player;
 
     [SerializeField] private Light spotLight;
+    [SerializeField] private Transform shootTransform;
+    [SerializeField] private Rigidbody bulletPrefab;
 
+    private Coroutine shootingCoroutine = null;
 
     //public Enemy(EnemyScriptableObject enemyConfig)
     //{
@@ -38,7 +41,7 @@ public class Enemy : MonoBehaviour,IDamagable
 
     void Start()
     {
-        enemyhealthController = new HealthController(m_enemyConfig.InitialHealth);
+        enemyhealthController = new HealthController(m_enemyConfig.InitialHealth,OnDeath);
         enemyRigidBody = GetComponent<Rigidbody>();
         direction = new Vector3(0,0,m_enemyConfig.RoamingSpeed * Time.deltaTime);
         
@@ -179,7 +182,7 @@ public class Enemy : MonoBehaviour,IDamagable
 
 
 
-    #region CHASING
+    #region CHASING & SHOOTING
 
     private void ChaseThePlayer()
     {
@@ -191,8 +194,25 @@ public class Enemy : MonoBehaviour,IDamagable
         {
             transform.Translate(target.normalized * m_enemyConfig.ChasingSpeed * Time.deltaTime);
         }
+
+        if(shootingCoroutine is null)
+        {
+            shootingCoroutine = StartCoroutine(Shoot());
+        }
     }
 
+    private IEnumerator Shoot()
+    {
+
+        while (currentState == EnemyState.chase)
+        {
+            Rigidbody _obj = Instantiate(bulletPrefab,shootTransform) as Rigidbody;
+            _obj.velocity = transform.forward * m_enemyConfig.weapon.AttackRadius;
+
+            yield return new WaitForSeconds(m_enemyConfig.weapon.TimeGap);
+        }
+        shootingCoroutine = null;
+    }
 
     #endregion
 
@@ -208,6 +228,24 @@ public class Enemy : MonoBehaviour,IDamagable
     public void OnDamage()
     {
         enemyhealthController.changeHealth(1);
+
+        Debug.Log("damage");
+    }
+
+    public void OnDeath()
+    {
+        currentState = EnemyState.die;
+        enemyAnimator.Play("die");
+
+        StopAllCoroutines();
+
+        StartCoroutine(deathEffect());
+    }
+
+    private IEnumerator deathEffect()
+    {
+        yield return new WaitForSeconds(5);
+        Destroy(gameObject);
     }
 
     private void OnDrawGizmos()

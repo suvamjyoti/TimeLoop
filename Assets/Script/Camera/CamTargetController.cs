@@ -12,7 +12,7 @@ public class CamTargetController : MonoBehaviour
     {
         x += Input.GetAxisRaw("Mouse X") * mouseSensititvity;
         
-        if(x > 0 && x < 180)
+        if(x > -90 && x < 90)
         {
             transform.localRotation = Quaternion.Euler(0, x, 0);
         }

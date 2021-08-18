@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96d4ab603f7b4f14cb3885a93c06f95a, type: 3}
-  m_Name: laser
+  m_Name: Bullet
   m_EditorClassIdentifier: 
   weaponType: 1
   Damage: 1
   TimeGap: 3
-  AttackRadius: 10
+  AttackRadius: 30
