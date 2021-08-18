@@ -6,13 +6,13 @@ public class Enemy : MonoBehaviour,IDamagable
 {
     [SerializeField] public EnemyScriptableObject m_enemyConfig;
     [SerializeField] private Animator enemyAnimator;
-    [SerializeField] private LayerMask viewMask;
-
+    
     private Rigidbody enemyRigidBody;
 
     private const float RotationSpeed = 6;
     private const float CollisionRadius = 5;
-    private const float RotationAngle = 30;
+
+    [SerializeField] private float RotationAngleOnCollision = 90;
 
     private Coroutine enemyRotationCoroutine = null;
     private Coroutine playerCheckCoroutine;
@@ -27,6 +27,8 @@ public class Enemy : MonoBehaviour,IDamagable
 
     private Player player;
 
+    [SerializeField] private Light spotLight;
+
 
     //public Enemy(EnemyScriptableObject enemyConfig)
     //{
@@ -38,7 +40,7 @@ public class Enemy : MonoBehaviour,IDamagable
     {
         enemyhealthController = new HealthController(m_enemyConfig.InitialHealth);
         enemyRigidBody = GetComponent<Rigidbody>();
-        direction = new Vector3(m_enemyConfig.RoamingSpeed * Time.deltaTime, 0, 0);
+        direction = new Vector3(0,0,m_enemyConfig.RoamingSpeed * Time.deltaTime);
         
         currentState = EnemyState.roam;
         enemyAnimator.Play("walk");
@@ -47,7 +49,7 @@ public class Enemy : MonoBehaviour,IDamagable
 
     private void FixedUpdate()
     {
-        if (currentState != EnemyState.die)
+        if (currentState != EnemyState.chase)
         {
             enemyRigidBody.transform.Translate(direction);
         }
@@ -64,24 +66,6 @@ public class Enemy : MonoBehaviour,IDamagable
         {
             playerCheckCoroutine = StartCoroutine(checkForPlayer());
         }
-
-        if(currentState == EnemyState.chase)
-        {
-            CheckPlayerDistance();
-        }
-    }
-    
-    private void CheckPlayerDistance()
-    {
-        if(player != null)
-        {
-            float difference = Vector3.Distance(transform.position, player.transform.position);
-            if (difference < 2)
-            {
-                currentState = EnemyState.die;
-                enemyAnimator.Play("die");
-            }
-        }
     }
 
     private IEnumerator RotationCoroutine()
@@ -94,31 +78,17 @@ public class Enemy : MonoBehaviour,IDamagable
             {
                 if (collider.tag == "obstacle")
                 {
-                    rotation += RotationAngle;
+                    rotation += RotationAngleOnCollision;
                     Quaternion temp = Quaternion.Euler(0, rotation, 0);
                     transform.rotation = Quaternion.Lerp(transform.rotation, temp, RotationSpeed);
                 }
             }
-            //will check collision every 2 sec
-            yield return new WaitForSeconds(2);
+            //will check collision every 1 sec
+            yield return new WaitForSeconds(1);
         }
     }
 
-   
 
-    public void OnDamage()
-    {
-        enemyhealthController.changeHealth(1);
-    }
-
-    private void changeState(EnemyState newState)
-    {
-        if(currentState != newState)
-        {
-            currentState = newState;
-        }
-
-    }
 
     #region DETECTION
 
@@ -130,18 +100,11 @@ public class Enemy : MonoBehaviour,IDamagable
             {
                 if (CanSeePlayer())
                 {
-                    changeState(EnemyState.chase);
-                    
-                    StopCoroutine(enemyRotationCoroutine);
-                    enemyRotationCoroutine = null;
-
-                    TurnToFace(player.transform.position);
-
-                    //MoveTowardsPlayer();
+                    OnPlayerDetected();
                 }
             }
 
-            yield return new WaitForSeconds(2);                 //will check every 2 sec for player
+            yield return new WaitForSeconds(1);                 //will check every 1 sec for player
         }
     }
 
@@ -151,22 +114,13 @@ public class Enemy : MonoBehaviour,IDamagable
         Vector3 _dirToLookTarget = (_lookTarget - transform.position).normalized;
         float _targetAngle = 90 - Mathf.Atan2(_dirToLookTarget.z, _dirToLookTarget.x) * Mathf.Rad2Deg;
 
-        while (Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.y, _targetAngle)) > 0.5f)
+        while (Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.y, _targetAngle)) > 0.1f)
         {
-            float _angle = Mathf.MoveTowardsAngle(transform.eulerAngles.y, _targetAngle, RotationSpeed * Time.deltaTime);
+            float _angle = Mathf.MoveTowardsAngle(transform.eulerAngles.y, _targetAngle, RotationSpeed);
             transform.eulerAngles = Vector3.up * _angle;
             yield return null;
         }
     }
-
-    private void MoveTowardsPlayer()
-    {
-        if(player != null)
-        {
-            direction = (player.transform.position - transform.position).normalized * m_enemyConfig.ChasingSpeed;
-        }
-    }
-
 
     private bool PlayerInProximity()
     {
@@ -193,24 +147,48 @@ public class Enemy : MonoBehaviour,IDamagable
 
             if (_angleBetweenEnemyAndPlayer < m_enemyConfig.FieldOfView / 2f)
             {                                                                                                       //Is Player In View Cone
-
-                //viewMask prevents enemy from seeing player beyond obstacle
-                if (!Physics.Linecast(transform.position, player.transform.position, viewMask))
-                {                                                                                                   //Is Player In Line Of Sight
-                    return true;
-                }
+                return true;
             }
         }
         return false;
     }
 
+    private void OnPlayerDetected()
+    {
+        changeState(EnemyState.chase);
+
+        StopCoroutine(enemyRotationCoroutine);
+        enemyRotationCoroutine = null;
+
+        StartCoroutine(TurnToFace(player.transform.position));
+
+        spotLight.color = Color.red;
+    }
+
     #endregion
 
 
+
+    #region CHASING
+
+    #endregion
+
+    private void changeState(EnemyState newState)
+    {
+        if (currentState != newState)
+        {
+            currentState = newState;
+        }
+
+    }
+
+    public void OnDamage()
+    {
+        enemyhealthController.changeHealth(1);
+    }
+
     private void OnDrawGizmos()
     {
-        //Gizmos.color = Color.red;
-        //Gizmos.DrawRay(transform.position, transform.forward * m_enemyConfig.ChasingRadius);                         //ditection line range
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, m_enemyConfig.ChasingRadius);
