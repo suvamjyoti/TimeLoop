@@ -162,7 +162,7 @@ MonoBehaviour:
   shootTransform: {fileID: 1429467804427917332}
   bulletPrefab: {fileID: 3123369288194671955, guid: fe566751531faeb4aade6c3979726900,
     type: 3}
-  attackRadius: 50
+  attackRadius: 100
   timeGap: 2
 --- !u!1 &533152924997777111
 GameObject:

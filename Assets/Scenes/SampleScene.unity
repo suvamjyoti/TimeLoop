@@ -1144,6 +1144,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8394045701695369020, guid: 2cfd0ea7419c444428b075bf369a3ea3,
         type: 3}
+      propertyPath: timeGap
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8394045701695369020, guid: 2cfd0ea7419c444428b075bf369a3ea3,
+        type: 3}
       propertyPath: gameOver
       value: 
       objectReference: {fileID: 937734045}

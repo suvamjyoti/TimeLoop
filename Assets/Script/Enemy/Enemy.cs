@@ -190,7 +190,7 @@ public class Enemy : MonoBehaviour,IDamagable
         transform.LookAt(player.transform.position);
 
         Vector3 target = player.transform.position - transform.position;
-        if (target.magnitude > 25)
+        if (target.magnitude > 15)
         {
             transform.Translate(target.normalized * m_enemyConfig.ChasingSpeed * Time.deltaTime);
         }
@@ -228,8 +228,6 @@ public class Enemy : MonoBehaviour,IDamagable
     public void OnDamage()
     {
         enemyhealthController.changeHealth(1);
-
-        Debug.Log("damage");
     }
 
     public void OnDeath()
@@ -244,14 +242,7 @@ public class Enemy : MonoBehaviour,IDamagable
 
     private IEnumerator deathEffect()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         Destroy(gameObject);
-    }
-
-    private void OnDrawGizmos()
-    {
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, m_enemyConfig.ChasingRadius);
     }
 }
