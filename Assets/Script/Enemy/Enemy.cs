@@ -57,14 +57,24 @@ public class Enemy : MonoBehaviour,IDamagable
 
     void Update()
     {
-        if (currentState==EnemyState.roam && enemyRotationCoroutine is null)
+        switch (currentState)
         {
-            enemyRotationCoroutine = StartCoroutine(RotationCoroutine());
-        }
+            case EnemyState.roam:
 
-        if (currentState != EnemyState.chase && playerCheckCoroutine is null)
-        {
-            playerCheckCoroutine = StartCoroutine(checkForPlayer());
+                if(enemyRotationCoroutine is null || playerCheckCoroutine is null)
+                {
+                    enemyRotationCoroutine = StartCoroutine(RotationCoroutine());
+                    playerCheckCoroutine = StartCoroutine(checkForPlayer());
+                }
+
+            break;
+
+            case EnemyState.chase:
+
+                ChaseThePlayer(); 
+
+            break;
+
         }
     }
 
@@ -170,6 +180,19 @@ public class Enemy : MonoBehaviour,IDamagable
 
 
     #region CHASING
+
+    private void ChaseThePlayer()
+    {
+        //turn towards player
+        transform.LookAt(player.transform.position);
+
+        Vector3 target = player.transform.position - transform.position;
+        if (target.magnitude > 25)
+        {
+            transform.Translate(target.normalized * m_enemyConfig.ChasingSpeed * Time.deltaTime);
+        }
+    }
+
 
     #endregion
 

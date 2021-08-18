@@ -17,5 +17,5 @@ MonoBehaviour:
   InitialHealth: 4
   ChasingSpeed: 40
   ChasingRadius: 25
-  FieldOfView: 60
+  FieldOfView: 120
   weapon: {fileID: 11400000, guid: feae598bac2002d4dbe35e2e8aa7724e, type: 2}
