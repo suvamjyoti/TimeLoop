@@ -121,10 +121,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1.208432
+  m_Radius: 1.2592049
   m_Height: 5.522989
   m_Direction: 1
-  m_Center: {x: -0.06816425, y: 3.4127274, z: -1.5050392}
+  m_Center: {x: -0.08085766, y: 3.4127274, z: -0.045298386}
 --- !u!54 &2469866260813219394
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -155,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   rotationSpeed: 200
+  playerAnimator: {fileID: 3220988889974563302}
 --- !u!1 &533152924997777111
 GameObject:
   m_ObjectHideFlags: 0

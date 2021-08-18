@@ -4,7 +4,13 @@
     ranged
 }
 
-
+public enum playerState
+{
+    none,
+    ideal,
+    walk,
+    die
+}
 public enum EnemyType
 {
     Blue,
