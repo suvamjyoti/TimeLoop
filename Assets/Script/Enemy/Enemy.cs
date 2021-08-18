@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour,IDamagable
 {
-    [SerializeField] private EnemyScriptableObject m_enemyConfig;
+    [SerializeField] public EnemyScriptableObject m_enemyConfig;
     [SerializeField] private Animator enemyAnimator;
     
     private Rigidbody enemyRigidBody;
@@ -16,13 +16,18 @@ public class Enemy : MonoBehaviour
     private Vector3 direction;
     private float rotation;
 
+
+    private HealthController enemyhealthController;
+
     //public Enemy(EnemyScriptableObject enemyConfig)
     //{
     //    m_enemyConfig = enemyConfig;
+    //    enemyhealthController = new HealthController(m_enemyConfig.InitialHealth);
     //}
 
     void Start()
     {
+        enemyhealthController = new HealthController(m_enemyConfig.InitialHealth);
         enemyRigidBody = GetComponent<Rigidbody>();
         //should move forward
         direction = new Vector3(m_enemyConfig.RoamingSpeed * Time.deltaTime, 0, 0);
@@ -60,4 +65,8 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(2);
     }
 
+    public void OnDamage()
+    {
+        enemyhealthController.changeHealth(1);
+    }
 }

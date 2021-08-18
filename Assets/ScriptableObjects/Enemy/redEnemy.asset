@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: redEnemy
   m_EditorClassIdentifier: 
   RoamingSpeed: 5
-  InitialHealth: 2
+  InitialHealth: 4
   ChasingSpeed: 10
-  ChasingRadius: 0
+  ChasingRadius: 10
   FieldOfView: 60
   weapon: {fileID: 11400000, guid: feae598bac2002d4dbe35e2e8aa7724e, type: 2}

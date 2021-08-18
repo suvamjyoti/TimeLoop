@@ -700,6 +700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_enemyConfig: {fileID: 11400000, guid: 9b9f0e18fc75813498ca46bf33b5c8ca, type: 2}
+  enemyAnimator: {fileID: 2234659546277822543}
 --- !u!1 &3807363105183704611
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,30 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour,IDamagable
 {
     [SerializeField] private float speed;
     [SerializeField] private float rotationSpeed;
 
     [SerializeField] private Animator playerAnimator;
-
+    
     private playerState playerPreviousState = playerState.none;
 
+    private HealthController playerHealthController;
+
+    [SerializeField] private int playerHealth;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         ChangePlayerState(playerState.ideal);
+        playerHealthController = new HealthController(playerHealth);
     }
 
 
     void Update()
     {
+        PlayerMovement();
+    }
 
+
+    private void PlayerMovement()
+    {
         float _translation = Input.GetAxisRaw("Vertical");
         float _rotation = Input.GetAxisRaw("Horizontal");
 
-        if(_translation >0)
+        if (_translation > 0)
         {
             transform.Translate(_translation * speed * Time.deltaTime, 0, 0);
             ChangePlayerState(playerState.walk);
@@ -36,12 +45,9 @@ public class PlayerMovement : MonoBehaviour
         }
 
         transform.Rotate(0, _rotation * rotationSpeed * Time.deltaTime, 0);
-    }
+    } 
 
-
-
-
-    void ChangePlayerState(playerState newState)
+    private void ChangePlayerState(playerState newState)
     {
         if(newState != playerPreviousState)
         {
@@ -60,5 +66,10 @@ public class PlayerMovement : MonoBehaviour
 
             playerPreviousState = newState;
         }
+    }
+
+    public void OnDamage()
+    {
+        playerHealthController.changeHealth(1);
     }
 }
