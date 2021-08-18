@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 2
   RoamingSpeed: 30
-  InitialHealth: 6
+  InitialHealth: 2
   ChasingSpeed: 50
   ChasingRadius: 80
   FieldOfView: 120

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 37206500}
   - component: {fileID: 37206501}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CamTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 37206499}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -4.63, y: 5.92, z: -1.68}
+  m_LocalRotation: {x: 0.17863049, y: 0, z: 0, w: 0.9839163}
+  m_LocalPosition: {x: 0.83, y: 5.92, z: -3.95}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children: []
   m_Father: {fileID: 533152924798919096}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 20.58, y: 0, z: 0}
 --- !u!114 &37206501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53,7 +53,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 533152924484601737}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Hands
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,9 +88,9 @@ GameObject:
   - component: {fileID: 8444169873620805032}
   - component: {fileID: 2469866260813219394}
   - component: {fileID: 8394045701695369020}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,6 +108,7 @@ Transform:
   m_Children:
   - {fileID: 533152925372477318}
   - {fileID: 37206500}
+  - {fileID: 1429467804427917332}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -156,7 +157,13 @@ MonoBehaviour:
   speed: 60
   rotationSpeed: 200
   playerAnimator: {fileID: 3220988889974563302}
-  playerHealth: 0
+  playerHealth: 2
+  gameOver: {fileID: 0}
+  shootTransform: {fileID: 1429467804427917332}
+  bulletPrefab: {fileID: 3123369288194671955, guid: fe566751531faeb4aade6c3979726900,
+    type: 3}
+  attackRadius: 50
+  timeGap: 2
 --- !u!1 &533152924997777111
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,7 +175,7 @@ GameObject:
   - component: {fileID: 533152924997777110}
   - component: {fileID: 533152924997777107}
   - component: {fileID: 533152924997777108}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: leg (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,7 +254,7 @@ GameObject:
   - component: {fileID: 533152925008999979}
   - component: {fileID: 533152925008999976}
   - component: {fileID: 533152925008999977}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -326,7 +333,7 @@ GameObject:
   - component: {fileID: 533152925206210804}
   - component: {fileID: 533152925206210801}
   - component: {fileID: 533152925206210802}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -405,7 +412,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 533152925242519274}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -438,7 +445,7 @@ GameObject:
   - component: {fileID: 533152925306734167}
   - component: {fileID: 533152925306734164}
   - component: {fileID: 533152925306734165}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -517,7 +524,7 @@ GameObject:
   - component: {fileID: 533152925365089994}
   - component: {fileID: 533152925365089991}
   - component: {fileID: 533152925365089992}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: hand (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -595,7 +602,7 @@ GameObject:
   m_Component:
   - component: {fileID: 533152925372477318}
   - component: {fileID: 3220988889974563302}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -609,7 +616,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 533152925372477319}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -619,7 +626,7 @@ Transform:
   - {fileID: 533152924484601737}
   m_Father: {fileID: 533152924798919096}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!95 &3220988889974563302
 Animator:
   serializedVersion: 3
@@ -648,7 +655,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 533152925635020439}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -681,7 +688,7 @@ GameObject:
   - component: {fileID: 533152925705079195}
   - component: {fileID: 533152925705079192}
   - component: {fileID: 533152925705079193}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -749,6 +756,36 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &589940052555698545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1429467804427917332}
+  m_Layer: 9
+  m_Name: ShootTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1429467804427917332
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589940052555698545}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0.13, y: 4.19, z: 3.04}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 533152924798919096}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &1194582820206967988
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,7 +795,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3671377219888065833}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -791,8 +828,7 @@ GameObject:
   - component: {fileID: 1971672027852372991}
   - component: {fileID: 4232348956130329587}
   - component: {fileID: 7083906669821849888}
-  - component: {fileID: 6643795170685971375}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -860,19 +896,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &6643795170685971375
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6590458371359820668}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7351480196011481105
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,7 +905,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5223332957992207020}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Legs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -914,7 +937,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4119886689249546422}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -947,8 +970,7 @@ GameObject:
   - component: {fileID: 4098746813834839074}
   - component: {fileID: 7556192443224704824}
   - component: {fileID: 1573579373475036758}
-  - component: {fileID: 5974097607694553341}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: eye (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1016,16 +1038,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5974097607694553341
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9212178061310958729}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
