@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d205a3876039a0342afc4aed69dd7160, type: 3}
   m_Name: BlackEnemy
   m_EditorClassIdentifier: 
-  RoamingSpeed: 10
+  enemyType: 2
+  RoamingSpeed: 30
   InitialHealth: 6
-  ChasingSpeed: 15
-  ChasingRadius: 20
+  ChasingSpeed: 50
+  ChasingRadius: 80
   FieldOfView: 60
   weapon: {fileID: 11400000, guid: feae598bac2002d4dbe35e2e8aa7724e, type: 2}

@@ -699,7 +699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51a3e842071554f458b9442b46755a25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_enemyConfig: {fileID: 11400000, guid: 9b9f0e18fc75813498ca46bf33b5c8ca, type: 2}
+  m_enemyConfig: {fileID: 11400000, guid: e5a871e80c26c8141b1007432ad5847b, type: 2}
   enemyAnimator: {fileID: 2234659546277822543}
 --- !u!1 &3807363105183704611
 GameObject:

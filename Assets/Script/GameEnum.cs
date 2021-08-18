@@ -12,7 +12,7 @@ public enum playerState
     die
 }
 
-public enum enemyState
+public enum EnemyState
 {
     roam,
     chase,

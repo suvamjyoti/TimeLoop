@@ -34,7 +34,7 @@ public class Player : MonoBehaviour,IDamagable
         float _translation = Input.GetAxisRaw("Vertical");
         float _rotation = Input.GetAxisRaw("Horizontal");
 
-        if (_translation > 0)
+        if (_translation != 0)
         {
             transform.Translate(_translation * speed * Time.deltaTime, 0, 0);
             ChangePlayerState(playerState.walk);
