@@ -11,6 +11,15 @@ public enum playerState
     walk,
     die
 }
+
+public enum enemyState
+{
+    roam,
+    chase,
+    attack,
+    die
+}
+
 public enum EnemyType
 {
     Blue,
